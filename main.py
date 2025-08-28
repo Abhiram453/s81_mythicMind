@@ -22,7 +22,10 @@ quirks = ["always hums a tune", "collects alien artifacts"]
 prompt = generate_character_prompt(genre, traits, quirks)
 
 model = genai.GenerativeModel("gemini-1.5-pro-latest")
-response = model.generate_content(prompt, generation_config={"top_p": 0.8, "temperature": 1.2})
+response = model.generate_content(
+    prompt,
+    generation_config={"top_p": 0.8, "temperature": 1.2, "top_k": 50}
+)
 print(response.text)
 
 # Log the number of tokens used
@@ -32,7 +35,8 @@ else:
     print("Token usage information not available.")
 
 # --- Video Explanation ---
-# Temperature in LLMs controls the randomness of AI responses.
-# Lower temperature values make outputs more predictable and focused.
-# Higher temperature values increase creativity and variability.
-# This code sets temperature to 1.2, making the character generation more creative and diverse.
+# Top K is a parameter in LLMs that controls the diversity of generated text.
+# It limits the model to consider only the top K most likely next tokens at each step.
+# Lower Top K values make outputs more focused and deterministic.
+# Higher Top K values increase creativity and randomness.
+# This code sets Top K to 50, balancing coherence and diversity in character generation.
