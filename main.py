@@ -25,8 +25,13 @@ model = genai.GenerativeModel("gemini-1.5-pro-latest")
 response = model.generate_content(prompt)
 print(response.text)
 
+# Log the number of tokens used
+if hasattr(response, "usage_metadata") and "total_tokens" in response.usage_metadata:
+    print(f"Tokens used: {response.usage_metadata['total_tokens']}")
+else:
+    print("Token usage information not available.")
+
 # --- Video Explanation ---
-# Dynamic prompting means building AI prompts on-the-fly based on user choices or context.
-# In this code, the prompt is constructed using the genre, traits, and quirks chosen by the user.
-# This lets the AI generate more personalized and relevant character profiles, adapting to each user's needs.
-# The code demonstrates dynamic prompting by assembling the prompt dynamically before sending it to Gemini.
+# Tokens are chunks of text (words or parts of words) that AI models process.
+# Each prompt and response is measured in tokens, which affects cost and limits.
+# This code logs the number of tokens used after each AI call, helping you track usage and
