@@ -6,12 +6,13 @@ genai.configure(api_key="AIzaSyBHA0ZZQu1Zy5u7xE1lAQW7-XYj-k1-asY")
 def generate_character_prompt(genre, traits=None, quirks=None):
     # Dynamic prompting: build the prompt based on user input
     prompt = f"You are a character generator for a creative writing app. Generate a detailed character profile for the following genre: {genre}.\n\n"
-    prompt += "Include:\n- Name\n- Personality traits\n- Backstory\n- Motivations\n- Unique quirks\n"
+    prompt += "Respond ONLY in valid JSON format with the following keys: name, personality_traits, backstory, motivations, unique_quirks.\n"
+    prompt += "Include:\n- name\n- personality_traits\n- backstory\n- motivations\n- unique_quirks\n"
     if traits:
         prompt += f"\nFocus on these traits: {', '.join(traits)}.\n"
     if quirks:
         prompt += f"\nAdd these quirks: {', '.join(quirks)}.\n"
-    prompt += "\nRespond with a complete character profile."
+    prompt += "\nRespond with a complete character profile in JSON."
     return prompt
 
 # Example usage: user selects genre and custom traits/quirks
@@ -35,8 +36,6 @@ else:
     print("Token usage information not available.")
 
 # --- Video Explanation ---
-# Top K is a parameter in LLMs that controls the diversity of generated text.
-# It limits the model to consider only the top K most likely next tokens at each step.
-# Lower Top K values make outputs more focused and deterministic.
-# Higher Top K values increase creativity and randomness.
-# This code sets Top K to 50, balancing coherence and diversity in character generation.
+# Structured output means the AI returns data in a specific format, like JSON, making it easier to parse and use in applications.
+# In this code, the prompt instructs Gemini to respond with a character profile in JSON format.
+# This allows developers to reliably extract and use each field, improving integration and automation.
