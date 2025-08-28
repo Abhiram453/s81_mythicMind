@@ -22,7 +22,7 @@ quirks = ["always hums a tune", "collects alien artifacts"]
 prompt = generate_character_prompt(genre, traits, quirks)
 
 model = genai.GenerativeModel("gemini-1.5-pro-latest")
-response = model.generate_content(prompt)
+response = model.generate_content(prompt, generation_config={"top_p": 0.8})
 print(response.text)
 
 # Log the number of tokens used
@@ -32,6 +32,6 @@ else:
     print("Token usage information not available.")
 
 # --- Video Explanation ---
-# Tokens are chunks of text (words or parts of words) that AI models process.
-# Each prompt and response is measured in tokens, which affects cost and limits.
-# This code logs the number of tokens used after each AI call, helping you track usage and
+# Top P (nucleus sampling) controls the diversity of AI responses by limiting choices to the most probable tokens whose cumulative probability is <= Top P.
+# Lower Top P values make outputs more focused; higher values increase creativity.
+# This code sets Top P to 0.8 for balanced creativity and coherence.
