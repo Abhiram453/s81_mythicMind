@@ -22,7 +22,7 @@ quirks = ["always hums a tune", "collects alien artifacts"]
 prompt = generate_character_prompt(genre, traits, quirks)
 
 model = genai.GenerativeModel("gemini-1.5-pro-latest")
-response = model.generate_content(prompt, generation_config={"top_p": 0.8})
+response = model.generate_content(prompt, generation_config={"top_p": 0.8, "temperature": 1.2})
 print(response.text)
 
 # Log the number of tokens used
@@ -32,6 +32,7 @@ else:
     print("Token usage information not available.")
 
 # --- Video Explanation ---
-# Top P (nucleus sampling) controls the diversity of AI responses by limiting choices to the most probable tokens whose cumulative probability is <= Top P.
-# Lower Top P values make outputs more focused; higher values increase creativity.
-# This code sets Top P to 0.8 for balanced creativity and coherence.
+# Temperature in LLMs controls the randomness of AI responses.
+# Lower temperature values make outputs more predictable and focused.
+# Higher temperature values increase creativity and variability.
+# This code sets temperature to 1.2, making the character generation more creative and diverse.
